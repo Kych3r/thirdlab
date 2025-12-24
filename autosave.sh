@@ -12,6 +12,15 @@ if [ ! -f "docker-compose.yml" ]; then
   exit 1
 fi
 
+if [ -z "$DB_USER" ] || [ -z "$DB_PASSWORD" ] || [ -z "$DB_NAME" ]; then
+  echo "Ошибка: не заданы обязательные переменные окружения:"
+  echo "  DB_USER - имя пользователя БД"
+  echo "  DB_PASSWORD - пароль пользователя БД"
+  echo "  DB_NAME - имя базы данных"
+  echo "  DB_SERVICE - имя сервиса в docker-compose.yml (опционально)"
+  exit 1
+fi
+
 mkdir -p "$BACKUP_DIR" || { echo "Ошибка создания директории $BACKUP_DIR"; exit 1; }
 
 DATE=$(date +"%Y%m%d_%H%M%S")

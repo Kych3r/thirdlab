@@ -1,10 +1,10 @@
 #!/bin/bash
 # backup_script.sh
 
-DB_SERVICE="db"
-DB_USER="kirillLABS"
-DB_PASSWORD="kirillLABS"
-DB_NAME="kirillLABS"
+DB_SERVICE=${DB_SERVICE:-"db"}
+DB_USER=${DB_USER:-}
+DB_PASSWORD=${DB_PASSWORD:-}
+DB_NAME=${DB_NAME:-}
 BACKUP_DIR="./backups"
 
 if [ ! -f "docker-compose.yml" ]; then

@@ -1,14 +1,23 @@
 #!/bin/bash
 # backup_script.sh
 
-DB_SERVICE="db"
-DB_USER="kirillLABS"
-DB_PASSWORD="kirillLABS"
-DB_NAME="kirillLABS"
+DB_SERVICE=${DB_SERVICE:-"db"}
+DB_USER=${DB_USER:-}
+DB_PASSWORD=${DB_PASSWORD:-}
+DB_NAME=${DB_NAME:-}
 BACKUP_DIR="./backups"
 
 if [ ! -f "docker-compose.yml" ]; then
   echo "Файл docker-compose.yml не найден в текущей директории!"
+  exit 1
+fi
+
+if [ -z "$DB_USER" ] || [ -z "$DB_PASSWORD" ] || [ -z "$DB_NAME" ]; then
+  echo "Ошибка: не заданы обязательные переменные окружения:"
+  echo "  DB_USER - имя пользователя БД"
+  echo "  DB_PASSWORD - пароль пользователя БД"
+  echo "  DB_NAME - имя базы данных"
+  echo "  DB_SERVICE - имя сервиса в docker-compose.yml (опционально)"
   exit 1
 fi
 
